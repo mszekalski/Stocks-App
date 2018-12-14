@@ -2,14 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter, Link, Route, Redirect } from "react-router-dom";
 
-const Auth = ({
-  component: Component,
-  path,
-  loggedIn,
-  exact,
-  currentChannel,
-  location
-}) => (
+const Auth = ({ component: Component, path, loggedIn, exact, location }) => (
   <Route
     exact={exact}
     path={path}
@@ -33,12 +26,19 @@ const Protected = ({ component: Component, path, loggedIn, exact }) => {
 
 const mapStateToProps = state => {
   return {
-    loggedIn: Boolean(state.session.currentUser),
-    currentChannel: state.ui.currentChannel || {}
+    loggedIn: Boolean(state.session.currentUser)
   };
 };
 
-export const AuthRoute = withRouter(connect(mapStateToProps, null)(Auth));
+export const AuthRoute = withRouter(
+  connect(
+    mapStateToProps,
+    null
+  )(Auth)
+);
 export const ProtectedRoute = withRouter(
-  connect(mapStateToProps, null)(Protected)
+  connect(
+    mapStateToProps,
+    null
+  )(Protected)
 );
